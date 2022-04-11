@@ -1,0 +1,77 @@
+
+a:link, a:visited{
+	text-decoration: none;
+	text-decoration-color: #a0a688;
+	color: #d1d6bf;
+}
+
+a:hover, a:active{
+	color: #dbdbdb;
+	text-decoration-color: #dbdbdb;
+}
+
+html{
+	background-color: rgb(236, 231, 223)
+}
+
+@keyframes wipe-in-right {
+	from {
+	  clip-path: inset(0 100% 0 0);
+	}
+	to {
+	  clip-path: inset(0 0 0 0);
+	}
+  }
+  
+  [transition-style="in:wipe:right"] {
+	animation: 2.5s cubic-bezier(.25, 1, .30, 1) wipe-in-right both;
+  }
+
+  @keyframes square-in-top-left {
+	from {
+	  clip-path: inset(100% 0 0 100%);
+	}
+	to {
+	  clip-path: inset(0 0 0 0);
+	}
+  }
+  
+  [transition-style="in:square:top-left"] {
+	animation: 2.5s cubic-bezier(.25, 1, .30, 1) square-in-top-left both;
+  }
+
+  @keyframes diamond-in-hesitate {
+	0% {
+	  clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+	}
+	50% {
+	  clip-path: polygon(45% 50%, 50% 25%, 55% 50%, 50% 75%);
+	}
+	100% {
+	  clip-path: polygon(-50% 50%, 50% -50%, 150% 50%, 50% 150%);
+	}
+  }
+  
+  [transition-style="in:diamond:hesitate"] {
+	animation: 1.5s cubic-bezier(.25, 1, .30, 1) diamond-in-hesitate both;
+  }
+
+.myName{
+	display: flex;
+	margin-top: 150px;
+	justify-content: center;
+	align-items: center;
+	color: #000000;
+	font: 115px "GreatVibes-Regular";
+	animation: diamond-in-hesitate 1.5s steps(100, end);
+}
+
+
+.info{
+	margin-left: 30px;
+	font-size: 30px;
+	text-align: left;
+	color: #e8e3dc;
+	animation: square-in-top-left 1.25s steps(100, end);
+}
+
