@@ -65,7 +65,7 @@ const Canvas = props => {
             let clickY = pieces.black[i][1];
             if (clickX > x - 16 && clickX < x + 16
               && clickY > y - 16 && clickY < y + 16){
-              context.fillRect(x, y, 15, 15);
+              context.fillRect(x - 8, y - 8, 15, 15);
               grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "BLACK"
               for (let j in grid)
                 console.log(`COLUMN: ${Number(j) + 1} ${grid[j]}`)
