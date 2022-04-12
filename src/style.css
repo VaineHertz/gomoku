@@ -14,19 +14,8 @@ html{
 	background-color: rgb(236, 231, 223)
 }
 
-@media screen and (max-width: 90vh){
-		canvas{
-		background-color: rgb(211, 187, 148);
-		width: 90vw;
-		margin-top: 5vh;
-	}
-}
 
-@media screen and (min-width: 90vh){
-	canvas{
+canvas{
 	background-color: rgb(211, 187, 148);
-	width: 90vh;
-	height: 90vh;
 	margin-top: 5vh;
-}
 }
