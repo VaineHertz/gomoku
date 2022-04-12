@@ -1,6 +1,6 @@
 {
-  "name": "portfolio",
-  "homepage": "https://vainehertz.github.io/TONYPADILLA.US",
+  "name": "gomoku",
+  "homepage": "https://vainehertz.github.io/gomoku",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
