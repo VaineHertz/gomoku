@@ -60,6 +60,16 @@ const Canvas = props => {
       ctx.stroke()
     }
   
+    function drawPiece(context, color, x, y){
+      context.beginPath();
+      context.arc(x, y, 10, 0, 2 * Math.PI, false);
+      context.fillStyle = color;
+      context.fill();
+      context.lineWidth = 1;
+      context.strokeStyle = color == 'white' ? 'black' : 'white';
+      context.stroke();
+    }
+
     useEffect(() => {
       const canvas = canvasRef.current
       const context = canvas.getContext('2d')
@@ -77,8 +87,7 @@ const Canvas = props => {
               if (clickX > x - 16 && clickX < x + 16 &&
               clickY > y - 16 && clickY < y + 16 &&
               board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] != "BLK"){
-                context.fillStyle = 'white';
-                context.fillRect(x - 8, y - 8, 15, 15);
+                drawPiece(context, 'white', x, y)
                 board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "WHT";
                 board.pieces.white[i][2] = true;
               }
@@ -91,8 +100,7 @@ const Canvas = props => {
               if (clickX > x - 16 && clickX < x + 16
                 && clickY > y - 16 && clickY < y + 16 &&
                 board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] != "WHT"){
-                context.fillStyle = 'black';
-                context.fillRect(x - 8, y - 8, 15, 15);
+                  drawPiece(context, 'black', x, y)
                 board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "BLK";
                 board.pieces.black[i][2] = true;
               }
