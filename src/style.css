@@ -1,4 +1,3 @@
-
 a:link, a:visited{
 	text-decoration: none;
 	text-decoration-color: #a0a688;
@@ -11,7 +10,8 @@ a:hover, a:active{
 }
 
 html{
-	background-color: rgb(236, 231, 223)
+	background-color: rgb(236, 231, 223);
+	caret-color: transparent;
 }
 
 
