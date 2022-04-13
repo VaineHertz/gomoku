@@ -22,8 +22,8 @@ function App() {
 
           <Canvas width="495" height="495"></Canvas>
           <div id="whosturn">Black's turn to start</div>
-          <button id="draw" onClick={offerDraw}>OFFER DRAW</button>
-          <button id="resign" onClick={offerDraw}>RESIGN</button>
+          <button id="draw">OFFER DRAW</button>
+          <button id="resign">RESIGN</button>
 
 
           {/* */}

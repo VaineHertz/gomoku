@@ -10,25 +10,16 @@ function resetBoard(){
     }
   }
   board.pieces.white.push([0,0,true]);
-  board.pieces.black.push([0,0,true])
-  console.log(board)
+  board.pieces.black.push([0,0,true]);
+  console.log(board);
   return board;
 }
 
 //initialize a 15x15 board
 let board = resetBoard();
 
-function offerDraw(){
-  if (window.confirm("Accept draw?")){
-    console.log("Resetting");
-    board = resetBoard();
-    console.log(board)
-  }
-}
-
 const Canvas = props => {
-  
-    const canvasRef = useRef(null)
+    const canvasRef = useRef(null);
   
     const getClickPos = (canvas, event) => {
       if (board.pieces.turn == 'black')
@@ -44,6 +35,9 @@ const Canvas = props => {
       const cW = ctx.canvas.width * 0.97;
       const cH = ctx.canvas.height * 0.97;
       
+      ctx.clearRect(p, p, cW+p, cH+p)
+
+      ctx.beginPath();
       /* draw a 15x15 grid*/
       for (let i = 0; i <= 480; i += 32){
         /* horizontal lines */
@@ -58,56 +52,79 @@ const Canvas = props => {
       /* use black lines for the grid */
       ctx.strokeStyle = "black";
       ctx.stroke()
-    }
-  
-    function drawPiece(context, color, x, y){
-      context.beginPath();
-      context.arc(x, y, 10, 0, 2 * Math.PI, false);
-      context.fillStyle = color;
-      context.fill();
-      context.lineWidth = 1;
-      context.strokeStyle = color == 'white' ? 'black' : 'white';
-      context.stroke();
-    }
 
-    useEffect(() => {
-      const canvas = canvasRef.current
-      const context = canvas.getContext('2d')
-      canvas.addEventListener('mousedown', (e) => {
-  
-        getClickPos(canvas, e)
-  
-        /* iterate through every tile */
-        for (let x = 23; x < 480; x += 32){
-          for (let y = 23; y < 480; y += 32){
-            /* draw white pieces */
-            for (let i in board.pieces.white){
-              let clickX = board.pieces.white[i][0];
-              let clickY = board.pieces.white[i][1];
-              if (clickX > x - 16 && clickX < x + 16 &&
-              clickY > y - 16 && clickY < y + 16 &&
-              board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] != "BLK"){
-                drawPiece(context, 'white', x, y)
-                board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "WHT";
-                board.pieces.white[i][2] = true;
-              }
+      /* iterate through every tile */
+      for (let x = 23; x < 480; x += 32){
+        for (let y = 23; y < 480; y += 32){
+          /* draw white pieces */
+          for (let i in board.pieces.white){
+            let clickX = board.pieces.white[i][0];
+            let clickY = board.pieces.white[i][1];
+            if (clickX > x - 16 && clickX < x + 16 &&
+            clickY > y - 16 && clickY < y + 16 &&
+            board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] != "BLK"){
+              drawPiece(ctx, 'white', x, y)
+              board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "WHT";
+              board.pieces.white[i][2] = true;
             }
-  
-            /* draw black pieces */
-            for (let i in board.pieces.black){
-              let clickX = board.pieces.black[i][0];
-              let clickY = board.pieces.black[i][1];
-              if (clickX > x - 16 && clickX < x + 16
-                && clickY > y - 16 && clickY < y + 16 &&
-                board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] != "WHT"){
-                  drawPiece(context, 'black', x, y)
-                board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "BLK";
-                board.pieces.black[i][2] = true;
-              }
+          }
+
+          /* draw black pieces */
+          for (let i in board.pieces.black){
+            let clickX = board.pieces.black[i][0];
+            let clickY = board.pieces.black[i][1];
+            if (clickX > x - 16 && clickX < x + 16
+              && clickY > y - 16 && clickY < y + 16 &&
+              board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] != "WHT"){
+                drawPiece(ctx, 'black', x, y)
+              board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "BLK";
+              board.pieces.black[i][2] = true;
             }
           }
         }
+      }
+    }
   
+    function drawPiece(ctx, color, x, y){
+      ctx.beginPath();
+      ctx.arc(x, y, 10, 0, 2 * Math.PI, false);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = color == 'white' ? 'black' : 'white';
+      ctx.stroke();
+    }
+  
+
+    useEffect(() => {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+
+      draw(context);
+
+      document.getElementById("draw").onclick = () => {
+        if (window.confirm("Accept draw?")){
+          console.log("Resetting");
+          board = resetBoard();
+          draw(context);
+          console.log(board);
+        }
+      }
+
+      document.getElementById("resign").onclick = () => {
+        if (window.confirm("Are you sure you want to resign?")){
+          console.log("Resetting");
+          board = resetBoard();
+          draw(context);
+          console.log(board);
+        }
+      }
+
+      canvas.addEventListener('mousedown', (e) => {
+  
+        getClickPos(canvas, e);
+  
+        draw(context)
         /* print grid array to console */
         let gridString = "";
         for (let y = 0; y < 15; y++){
@@ -150,11 +167,9 @@ const Canvas = props => {
           console.log(`${board.pieces.turn}'s turn`)
         }
       })
-      /* draw comes here */
-      draw(context)
     }, [draw])
     
     return <canvas ref={canvasRef} {...props}/>
 }
 
-export {Canvas, board, offerDraw};
+export {Canvas, board};
