@@ -9,7 +9,8 @@ import './fonts/GreatVibes-Regular.ttf';
 
 const pieces = {
   black: [],
-  white: []
+  white: [],
+  turn: 'black'
 };
 
 const grid = [];
@@ -26,7 +27,10 @@ const Canvas = props => {
   const canvasRef = useRef(null)
 
   const getClickPos = (canvas, event) => {
-    pieces.black.push([event.offsetX, event.offsetY, false])
+    if (pieces.turn == 'black')
+      pieces.black.push([event.offsetX, event.offsetY, false]);
+    else if (pieces.turn == 'white')
+      pieces.white.push([event.offsetX, event.offsetY, false]);
   }
 
   const draw = ctx => {
@@ -56,25 +60,46 @@ const Canvas = props => {
     canvas.addEventListener('mousedown', (e) => {
 
       getClickPos(canvas, e)
-  
-      //draw black pieces
+
+      //draw pieces
       for (let x = 23; x < 480; x += 32){
         for (let y = 23; y < 480; y += 32){
+          for (let i in pieces.white){
+            let clickX = pieces.white[i][0];
+            let clickY = pieces.white[i][1];
+            if (clickX > x - 16 && clickX < x + 16
+              && clickY > y - 16 && clickY < y + 16){
+              context.fillStyle = 'white';
+              context.fillRect(x - 8, y - 8, 15, 15);
+              grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "WHT";
+              pieces.white[i][2] = true;
+            }
+          }
           for (let i in pieces.black){
             let clickX = pieces.black[i][0];
             let clickY = pieces.black[i][1];
             if (clickX > x - 16 && clickX < x + 16
               && clickY > y - 16 && clickY < y + 16){
+              context.fillStyle = 'black';
               context.fillRect(x - 8, y - 8, 15, 15);
-              grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "BLACK"
-              for (let j in grid)
-                console.log(`COLUMN: ${Number(j) + 1} ${grid[j]}`)
+              grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "BLK";
               pieces.black[i][2] = true;
+              //prints 2d grid array
+              for (let j in grid)
+                console.log(`COLUMN: ${Number(j) + 1} ${grid[j]}`);
             }
           }
         }
       }
-      console.log(`black pieces: ${pieces.black}`);
+      console.log(`${pieces.black[pieces.black.length - 1][2]}`)
+      if (pieces.turn == 'black' 
+        && pieces.black[pieces.black.length - 1][2] == true)
+          pieces.turn = 'white'
+      else if (pieces.turn == 'white'
+            && pieces.white[pieces.white.length - 1][2] == true)
+          pieces.turn = 'black'
+
+      console.log(`${pieces.turn}'s turn`)
     })
     //Our draw come here
     draw(context)

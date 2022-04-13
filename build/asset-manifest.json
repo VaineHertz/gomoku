@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/gomoku/static/css/main.63d666fc.chunk.css",
-    "main.js": "/gomoku/static/js/main.f020924d.chunk.js",
-    "main.js.map": "/gomoku/static/js/main.f020924d.chunk.js.map",
+    "main.js": "/gomoku/static/js/main.49aa815e.chunk.js",
+    "main.js.map": "/gomoku/static/js/main.49aa815e.chunk.js.map",
     "runtime~main.js": "/gomoku/static/js/runtime~main.bcea9654.js",
     "runtime~main.js.map": "/gomoku/static/js/runtime~main.bcea9654.js.map",
     "static/js/2.6371ef25.chunk.js": "/gomoku/static/js/2.6371ef25.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.13844b13.chunk.js": "/gomoku/static/js/3.13844b13.chunk.js",
     "static/js/3.13844b13.chunk.js.map": "/gomoku/static/js/3.13844b13.chunk.js.map",
     "index.html": "/gomoku/index.html",
-    "precache-manifest.25b917f80f5fa158f576f5c6bbf77f14.js": "/gomoku/precache-manifest.25b917f80f5fa158f576f5c6bbf77f14.js",
+    "precache-manifest.7b1ed452e6df5c551c38d32b6d6ac599.js": "/gomoku/precache-manifest.7b1ed452e6df5c551c38d32b6d6ac599.js",
     "service-worker.js": "/gomoku/service-worker.js",
     "static/css/main.63d666fc.chunk.css.map": "/gomoku/static/css/main.63d666fc.chunk.css.map",
     "static/media/GreatVibes-Regular.ttf": "/gomoku/static/media/GreatVibes-Regular.859a0d36.ttf"
