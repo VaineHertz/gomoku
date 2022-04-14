@@ -1,8 +1,9 @@
 import React, {useRef, useEffect} from 'react';
 import {emptyBoard} from './board.js';
 
-let blackScore = 0;
-let whiteScore = 0;
+let pOneScore = 0;
+let pTwoScore = 0;
+let pOneTurn = 'black'
 
 function resetBoard(){
   const board = emptyBoard();
@@ -14,6 +15,8 @@ function resetBoard(){
   }
   board.pieces.white.push([0,0,true]);
   board.pieces.black.push([0,0,true]);
+  //above fake true pieces trigger the turn to flip, so I set the turn to white
+  board.pieces.turn = 'white';
   return board;
 }
 
@@ -114,32 +117,56 @@ const Canvas = props => {
 
       draw(context);
 
+      /* OFFER DRAW BUTTON */
       document.getElementById("draw").onclick = () => {
         if (window.confirm("Accept draw?")){
           console.log("Resetting");
           board = resetBoard();
+          board.pieces.turn = 'black';
           draw(context);
-          console.log(board);
+          document.getElementById('whosturn').innerText = "it is black's turn"; 
         }
       }
 
+      /* RESIGN BUTTON */
       document.getElementById("resign").onclick = () => {
         if (window.confirm("Are you sure you want to resign?")){
-          console.log(`It was ${board.pieces.turn}'s turn, their opponent gets a point`)
           board.pieces.turn == 'white' ? addScore('BLK') : addScore('WHT') ;
           board = resetBoard();
+          board.pieces.turn = 'black';
           draw(context);
+          document.getElementById('whosturn').innerText = "it is black's turn"; 
         }
       }
 
       function addScore(color){
-        if (color == 'BLK')
-          blackScore++;
-        else if (color == 'WHT')
-          whiteScore++;
-        document.getElementById("score").innerText = `BLACK: ${blackScore} WHITE: ${whiteScore}`;
-        board = resetBoard();
         draw(context);
+        let pWinner = 'undefined';
+        if (color == 'BLK' && pOneTurn == 'black'){
+          pOneScore++;
+          pWinner = 'Player 1'
+        }
+        else if (color == 'BLK' && pOneTurn != 'black'){
+          pTwoScore++;
+          pWinner = 'Player 2'
+        }
+        else if (color == 'WHT' && pOneTurn != 'black'){
+          pOneScore++;
+          pWinner = 'Player 1'
+        }
+        else if (color == 'WHT' && pOneTurn == 'black'){
+          pTwoScore++
+          pWinner = 'Player 2'
+        }
+
+        setTimeout(() => {
+          window.alert(`${pWinner} wins!`)
+          pOneTurn == 'black' ? pOneTurn = 'white' : pOneTurn = 'black';
+          document.getElementById("score").innerText = `P1 (${pOneTurn}) ${pOneScore} - ${pTwoScore} (${pOneTurn == 'black' ? 'white' : 'black'}) P2`;
+          board = resetBoard();
+          draw(context);
+          document.getElementById('whosturn').innerText = "it is black's turn";},
+          50)
       }
 
       canvas.addEventListener('mousedown', (e) => {

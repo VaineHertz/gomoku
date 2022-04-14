@@ -18,5 +18,17 @@ html{
 
 canvas{
 	background-color: rgb(197, 182, 158);
+	margin-top: 3vh;
+}
+
+#score{
 	margin-top: 5vh;
+}
+
+#whosturn{
+	margin-top: 2vh;
+}
+
+button{
+	margin-top: 2vh;
 }
