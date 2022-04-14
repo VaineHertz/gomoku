@@ -64,11 +64,15 @@ const Canvas = props => {
             let clickX = board.pieces.white[i][0];
             let clickY = board.pieces.white[i][1];
             if (clickX > x - 16 && clickX < x + 16 &&
-            clickY > y - 16 && clickY < y + 16 &&
-            board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] != "BLK"){
-              drawPiece(ctx, 'white', x, y)
-              board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "WHT";
-              board.pieces.white[i][2] = true;
+            clickY > y - 16 && clickY < y + 16){
+              if (board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] == "   "){
+                drawPiece(ctx, 'white', x, y, true)
+                board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "WHT";
+                board.pieces.white[i][2] = true;
+              }
+              else if (board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] == "WHT"){
+                drawPiece(ctx, 'white', x, y)
+              }
             }
           }
 
@@ -77,25 +81,31 @@ const Canvas = props => {
             let clickX = board.pieces.black[i][0];
             let clickY = board.pieces.black[i][1];
             if (clickX > x - 16 && clickX < x + 16
-              && clickY > y - 16 && clickY < y + 16 &&
-              board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] != "WHT"){
+              && clickY > y - 16 && clickY < y + 16){
+              if(board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] == "   "){
+                drawPiece(ctx, 'black', x, y, true)
+                board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "BLK";
+                board.pieces.black[i][2] = true;
+              }
+              else if (board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] == "BLK"){
                 drawPiece(ctx, 'black', x, y)
-              board.grid[Math.round(x / 32 - 1)][Math.round(y / 32 - 1)] = "BLK";
-              board.pieces.black[i][2] = true;
+              }
             }
           }
         }
       }
     }
   
-    function drawPiece(ctx, color, x, y){
+    function drawPiece(ctx, color, x, y, placed){
+  
       ctx.beginPath();
       ctx.arc(x, y, 10, 0, 2 * Math.PI, false);
       ctx.fillStyle = color;
       ctx.fill();
-      ctx.lineWidth = 1;
+      placed ? ctx.lineWidth = 3 : ctx.lineWidth = 1;
       ctx.strokeStyle = color == 'white' ? 'black' : 'white';
       ctx.stroke();
+      ctx.lineWidth = 1;
     }
   
 
