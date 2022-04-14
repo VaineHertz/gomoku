@@ -20,9 +20,10 @@ function App() {
 	    <body>
           {/* */}
 
-          <div id="score">BLACK: 0 - WHITE: 0</div>
+          <div id="score">P1 (black) 0 - 0 (white) P2</div>
           <Canvas width="495" height="495"></Canvas>
           <div id="whosturn">Black's turn to start</div>
+          <div><button id='newGame'>NEW GAME</button></div>
           <button id="draw">OFFER DRAW</button>
           <button id="resign">RESIGN</button>
 

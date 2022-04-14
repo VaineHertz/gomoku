@@ -29,6 +29,7 @@ canvas{
 	margin-top: 2vh;
 }
 
-button{
+#newGame{
+	visibility: hidden;
 	margin-top: 2vh;
 }

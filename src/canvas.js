@@ -4,6 +4,7 @@ import {emptyBoard} from './board.js';
 let pOneScore = 0;
 let pTwoScore = 0;
 let pOneTurn = 'black'
+let inputLock = false;
 
 function resetBoard(){
   const board = emptyBoard();
@@ -124,7 +125,7 @@ const Canvas = props => {
           board = resetBoard();
           board.pieces.turn = 'black';
           draw(context);
-          document.getElementById('whosturn').innerText = "it is black's turn"; 
+          document.getElementById('whosturn').innerText = "It is black's turn"; 
         }
       }
 
@@ -135,8 +136,18 @@ const Canvas = props => {
           board = resetBoard();
           board.pieces.turn = 'black';
           draw(context);
-          document.getElementById('whosturn').innerText = "it is black's turn"; 
+          document.getElementById('whosturn').innerText = "It is black's turn"; 
         }
+      }
+
+      /* NEW GAME BUTTON */
+      document.getElementById("newGame").onclick = () => {
+        board = resetBoard();
+        board.pieces.turn = 'black';
+        draw(context);
+        document.getElementById('whosturn').innerText = "It is black's turn";
+        document.getElementById("newGame").style.visibility = 'hidden';
+        inputLock = false;
       }
 
       function addScore(color){
@@ -158,97 +169,97 @@ const Canvas = props => {
           pTwoScore++
           pWinner = 'Player 2'
         }
-
+        inputLock = true;
+        document.getElementById("newGame").style.visibility = 'visible';
         setTimeout(() => {
-          window.alert(`${pWinner} wins!`)
-          pOneTurn == 'black' ? pOneTurn = 'white' : pOneTurn = 'black';
-          document.getElementById("score").innerText = `P1 (${pOneTurn}) ${pOneScore} - ${pTwoScore} (${pOneTurn == 'black' ? 'white' : 'black'}) P2`;
-          board = resetBoard();
-          draw(context);
-          document.getElementById('whosturn').innerText = "it is black's turn";},
-          50)
+            window.alert(`${pWinner} wins!`)
+            pOneTurn == 'black' ? pOneTurn = 'white' : pOneTurn = 'black';
+            document.getElementById("score").innerText = `P1 (${pOneTurn}) ${pOneScore} - ${pTwoScore} (${pOneTurn == 'black' ? 'white' : 'black'}) P2`;
+          }, 50)
       }
 
       canvas.addEventListener('mousedown', (e) => {
-  
-        getClickPos(canvas, e);
-  
-        draw(context)
-        /* print grid array to console */
-        let gridString = "";
-        for (let y = 0; y < 15; y++){
-          gridString += "\n"
+        
+        if (!inputLock){
+          getClickPos(canvas, e);
+    
+          draw(context)
+          if ('Fold /* print grid array to console */'){
+            let gridString = "";
+            for (let y = 0; y < 15; y++){
+              gridString += "\n"
+              for (let x = 0; x < 15; x++){
+                gridString += `${x + 1},${y + 1}[${board.grid[x][y]}]`
+              }
+            }
+            console.log(gridString)
+          }
+          /* WIN CODITIONS
+          ----------------
+          horizontal check to see if 5 in a row has been achieved */
+          for (let x = 0; x < 11; x++){
+            for (let y = 0; y < 15; y++){
+              if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
+                /* horizontal 5 */
+                if(board.grid[x][y] == board.grid[x + 1][y] &&
+                  board.grid[x][y] == board.grid[x + 2][y] &&
+                  board.grid[x][y] == board.grid[x + 3][y] &&
+                  board.grid[x][y] == board.grid[x + 4][y])
+                    addScore(board.grid[x][y])
+              }
+            }
+          }
+          /* vertical 5 check */
           for (let x = 0; x < 15; x++){
-            gridString += `${x + 1},${y + 1}[${board.grid[x][y]}]`
-          }
-        }
-        console.log(gridString)
-  
-        /* horizontal check to see if 5 in a row has been achieved */
-        for (let x = 0; x < 11; x++){
-          for (let y = 0; y < 15; y++){
-            if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
-              /* horizontal 5 */
-              if(board.grid[x][y] == board.grid[x + 1][y] &&
-                board.grid[x][y] == board.grid[x + 2][y] &&
-                board.grid[x][y] == board.grid[x + 3][y] &&
-                board.grid[x][y] == board.grid[x + 4][y])
-                  addScore(board.grid[x][y])
+            for (let y = 0; y < 11; y++){
+              if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
+                if(board.grid[x][y] == board.grid[x][y + 1] &&
+                  board.grid[x][y] == board.grid[x][y + 2] &&
+                  board.grid[x][y] == board.grid[x][y + 3] &&
+                  board.grid[x][y] == board.grid[x][y + 4])
+                    addScore(board.grid[x][y])
+              }
             }
           }
-        }
-        for (let x = 0; x < 15; x++){
-          for (let y = 0; y < 11; y++){
-            if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
-              /* vertical 5 */
-              if(board.grid[x][y] == board.grid[x][y + 1] &&
-                board.grid[x][y] == board.grid[x][y + 2] &&
-                board.grid[x][y] == board.grid[x][y + 3] &&
-                board.grid[x][y] == board.grid[x][y + 4])
-                  addScore(board.grid[x][y])
+          /* descending diagonal 5 check */
+          for (let x = 0; x < 11; x++){
+            for (let y = 0; y < 11; y++){
+              if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
+                if(board.grid[x][y] == board.grid[x + 1][y + 1] &&
+                  board.grid[x][y] == board.grid[x + 2][y + 2] &&
+                  board.grid[x][y] == board.grid[x + 3][y + 3] &&
+                  board.grid[x][y] == board.grid[x + 4][y + 4])
+                    addScore(board.grid[x][y])
+              }
             }
           }
-        }
-        for (let x = 0; x < 11; x++){
-          for (let y = 0; y < 11; y++){
-            if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
-              /* descending diagonal 5 */
-              if(board.grid[x][y] == board.grid[x + 1][y + 1] &&
-                board.grid[x][y] == board.grid[x + 2][y + 2] &&
-                board.grid[x][y] == board.grid[x + 3][y + 3] &&
-                board.grid[x][y] == board.grid[x + 4][y + 4])
-                  addScore(board.grid[x][y])
+          /* ascending diagonal 5 */
+          for (let x = 0; x < 11; x++){
+            for (let y = 4; y < 15; y++){
+              if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
+                if(board.grid[x][y] == board.grid[x + 1][y - 1] &&
+                  board.grid[x][y] == board.grid[x + 2][y - 2] &&
+                  board.grid[x][y] == board.grid[x + 3][y - 3] &&
+                  board.grid[x][y] == board.grid[x + 4][y - 4])
+                    addScore(board.grid[x][y])
+              }
             }
           }
-        }
-        for (let x = 0; x < 11; x++){
-          for (let y = 4; y < 15; y++){
-            if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
-              /* ascending diagonal 5 */
-              if(board.grid[x][y] == board.grid[x + 1][y - 1] &&
-                board.grid[x][y] == board.grid[x + 2][y - 2] &&
-                board.grid[x][y] == board.grid[x + 3][y - 3] &&
-                board.grid[x][y] == board.grid[x + 4][y - 4])
-                  addScore(board.grid[x][y])
+    
+          /* check to see if a player has finished turn by 
+          placing a true piece */
+          if (board.pieces.black[board.pieces.black.length - 1][2] &&
+            board.pieces.white[board.pieces.white.length - 1][2]){
+            if (board.pieces.turn == 'black'){
+                board.pieces.turn = 'white'
+                document.getElementById('whosturn').innerText = "It is white's turn";
             }
+            else if (board.pieces.turn == 'white'){
+                board.pieces.turn = 'black'
+                document.getElementById('whosturn').innerText = "It is black's turn";  
+            }
+            console.log(`${board.pieces.turn}'s turn`)
           }
-        }
-  
-        /* check to see if a player has finished turn by 
-        placing a true piece */
-        console.log('black '+board.pieces.black[board.pieces.black.length - 1][2])
-        console.log('white '+board.pieces.white[board.pieces.white.length - 1][2])
-        if (board.pieces.black[board.pieces.black.length - 1][2] &&
-          board.pieces.white[board.pieces.white.length - 1][2]){
-          if (board.pieces.turn == 'black'){
-              board.pieces.turn = 'white'
-              document.getElementById('whosturn').innerText = "It is white's turn";
-          }
-          else if (board.pieces.turn == 'white'){
-              board.pieces.turn = 'black'
-              document.getElementById('whosturn').innerText = "It is black's turn";  
-          }
-          console.log(`${board.pieces.turn}'s turn`)
         }
       })
     }, [draw])
