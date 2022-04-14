@@ -15,6 +15,9 @@ html{
 	color: white;
 }
 
+h1{
+	margin-top: 4vh;
+}
 
 canvas{
 	background-color: rgb(197, 182, 158);
@@ -22,7 +25,7 @@ canvas{
 }
 
 #score{
-	margin-top: 5vh;
+	margin-top: 3vh;
 }
 
 #whosturn{
