@@ -14,7 +14,6 @@ function resetBoard(){
   }
   board.pieces.white.push([0,0,true]);
   board.pieces.black.push([0,0,true]);
-  console.log(board);
   return board;
 }
 
@@ -126,11 +125,10 @@ const Canvas = props => {
 
       document.getElementById("resign").onclick = () => {
         if (window.confirm("Are you sure you want to resign?")){
-          console.log("Resetting");
+          console.log(`It was ${board.pieces.turn}'s turn, their opponent gets a point`)
+          board.pieces.turn == 'white' ? addScore('BLK') : addScore('WHT') ;
           board = resetBoard();
           draw(context);
-          board.pieces.turn == 'white' ? addScore('black') : addScore('white') ;
-          console.log(board);
         }
       }
 
