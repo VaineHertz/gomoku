@@ -1,6 +1,9 @@
 import React, {useRef, useEffect} from 'react';
 import {emptyBoard} from './board.js';
 
+let blackScore = 0;
+let whiteScore = 0;
+
 function resetBoard(){
   const board = emptyBoard();
   for (let i = 0; i < 15; i++){
@@ -120,6 +123,16 @@ const Canvas = props => {
         }
       }
 
+      function addScore(color){
+        if (color == 'BLK')
+          blackScore++;
+        else if (color == 'WHT')
+          whiteScore++;
+        document.getElementById("score").innerText = `BLACK: ${blackScore} WHITE: ${whiteScore}`;
+        board = resetBoard();
+        draw(context);
+      }
+
       canvas.addEventListener('mousedown', (e) => {
   
         getClickPos(canvas, e);
@@ -144,7 +157,7 @@ const Canvas = props => {
                 board.grid[x][y] == board.grid[x + 2][y] &&
                 board.grid[x][y] == board.grid[x + 3][y] &&
                 board.grid[x][y] == board.grid[x + 4][y]){
-                  console.log("WINNERWINNERWINNERWINNERWINNER")
+                  addScore(board.grid[x][y])
               }
             }
           }

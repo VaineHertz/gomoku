@@ -22,6 +22,7 @@ function App() {
 
           <Canvas width="495" height="495"></Canvas>
           <div id="whosturn">Black's turn to start</div>
+          <div id="score">BLACK: 0 WHITE: 0</div>
           <button id="draw">OFFER DRAW</button>
           <button id="resign">RESIGN</button>
 

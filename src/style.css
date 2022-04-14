@@ -10,12 +10,13 @@ a:hover, a:active{
 }
 
 html{
-	background-color: rgb(236, 231, 223);
+	background-color: rgb(56, 56, 59);
 	caret-color: transparent;
+	color: white;
 }
 
 
 canvas{
-	background-color: rgb(211, 187, 148);
+	background-color: rgb(197, 182, 158);
 	margin-top: 5vh;
 }
