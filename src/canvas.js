@@ -129,6 +129,7 @@ const Canvas = props => {
           console.log("Resetting");
           board = resetBoard();
           draw(context);
+          board.pieces.turn == 'white' ? addScore('black') : addScore('white') ;
           console.log(board);
         }
       }
@@ -158,17 +159,52 @@ const Canvas = props => {
         }
         console.log(gridString)
   
-        /* check to see if 5 in a row has been achieved */
+        /* horizontal check to see if 5 in a row has been achieved */
         for (let x = 0; x < 11; x++){
           for (let y = 0; y < 15; y++){
             if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
-              /* check for a horizontal 5 */
+              /* horizontal 5 */
               if(board.grid[x][y] == board.grid[x + 1][y] &&
                 board.grid[x][y] == board.grid[x + 2][y] &&
                 board.grid[x][y] == board.grid[x + 3][y] &&
-                board.grid[x][y] == board.grid[x + 4][y]){
+                board.grid[x][y] == board.grid[x + 4][y])
                   addScore(board.grid[x][y])
-              }
+            }
+          }
+        }
+        for (let x = 0; x < 15; x++){
+          for (let y = 0; y < 11; y++){
+            if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
+              /* vertical 5 */
+              if(board.grid[x][y] == board.grid[x][y + 1] &&
+                board.grid[x][y] == board.grid[x][y + 2] &&
+                board.grid[x][y] == board.grid[x][y + 3] &&
+                board.grid[x][y] == board.grid[x][y + 4])
+                  addScore(board.grid[x][y])
+            }
+          }
+        }
+        for (let x = 0; x < 11; x++){
+          for (let y = 0; y < 11; y++){
+            if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
+              /* descending diagonal 5 */
+              if(board.grid[x][y] == board.grid[x + 1][y + 1] &&
+                board.grid[x][y] == board.grid[x + 2][y + 2] &&
+                board.grid[x][y] == board.grid[x + 3][y + 3] &&
+                board.grid[x][y] == board.grid[x + 4][y + 4])
+                  addScore(board.grid[x][y])
+            }
+          }
+        }
+        for (let x = 0; x < 11; x++){
+          for (let y = 4; y < 15; y++){
+            if (board.grid[x][y] == 'BLK' || board.grid[x][y] == 'WHT'){
+              /* ascending diagonal 5 */
+              if(board.grid[x][y] == board.grid[x + 1][y - 1] &&
+                board.grid[x][y] == board.grid[x + 2][y - 2] &&
+                board.grid[x][y] == board.grid[x + 3][y - 3] &&
+                board.grid[x][y] == board.grid[x + 4][y - 4])
+                  addScore(board.grid[x][y])
             }
           }
         }
