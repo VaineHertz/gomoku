@@ -1,18 +1,14 @@
 import React, {useEffect} from 'react';
-import $ from 'jquery';
 import './App.css';
 import './style.css';
 import {Canvas, Prompt, offerDraw} from './canvas.js';
-/* import { FiPhoneCall } from 'react-icons/fi';
-import { FiInstagram } from 'react-icons/fi';
-import { FiMail } from 'react-icons/fi'; */
-import './fonts/GreatVibes-Regular.ttf';
+
 
 function App() {
  
   return (
     <div className="App">
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="./style.css" />
       <head>
 		    <title>
 		    	Gomoku

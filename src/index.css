@@ -7,12 +7,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-@font-face {
-  font-family: "GreatVibes-Regular";
-  src: local("GreatVibes-Regular"),
-   url("./fonts/GreatVibes-Regular.ttf") format("truetype");
-  }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

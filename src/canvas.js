@@ -29,11 +29,11 @@ let board = resetBoard();
 const Prompt = (props) => {
   useEffect(() => {
   setTimeout(() => {
-  pOneName = window.prompt("Enter name for Player 1");}, 50)
+  pOneName = window.prompt("Enter name for Player 1");}, 100)
   
   setTimeout(() => {
     if (pOneName !== 'Player 1')
-      pTwoName = window.prompt("Enter name for Player 2");}, 50);
+      pTwoName = window.prompt("Enter name for Player 2");}, 100);
   });
 
   useEffect(() => {
