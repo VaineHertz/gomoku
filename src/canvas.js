@@ -147,19 +147,23 @@ const Canvas = props => {
     
     /* OFFER DRAW BUTTON */
     document.getElementById("draw").onclick = () => {
-      if (window.confirm("Accept draw?"))
-        addScore('none')
+      if (!inputLock){
+        if (window.confirm("Accept draw?"))
+          addScore('none')
+      }
     }
 
     /* RESIGN BUTTON */
     document.getElementById("resign").onclick = () => {
       let pName = 'undefined'
-      if ((board.pieces.turn === 'black' && pOneTurn === 'black') || (board.pieces.turn === 'white' && pOneTurn !== 'black'))
-        pName = pOneName;
-      else if ((board.pieces.turn === 'black'  && pOneTurn !== 'black') || (board.pieces.turn === 'white' && pOneTurn === 'black'))
-        pName = pTwoName;
-      if (window.confirm(`${pName} are you sure you want to resign?`))
-        board.pieces.turn === 'white' ? addScore('BLK') : addScore('WHT');
+      if (!inputLock){
+        if ((board.pieces.turn === 'black' && pOneTurn === 'black') || (board.pieces.turn === 'white' && pOneTurn !== 'black'))
+          pName = pOneName;
+        else if ((board.pieces.turn === 'black'  && pOneTurn !== 'black') || (board.pieces.turn === 'white' && pOneTurn === 'black'))
+          pName = pTwoName;
+        if (window.confirm(`${pName} are you sure you want to resign?`))
+          board.pieces.turn === 'white' ? addScore('BLK') : addScore('WHT');
+      }
     }
 
     /* NEW GAME BUTTON */
@@ -169,6 +173,8 @@ const Canvas = props => {
       draw(context);
       document.getElementById('whosturn').innerText = "It is black's turn";
       document.getElementById("newGame").style.visibility = 'hidden';
+      document.getElementById("draw").style.visibility = 'visible';
+      document.getElementById("resign").style.visibility = 'visible';
       inputLock = false;
     }
 
@@ -185,6 +191,8 @@ const Canvas = props => {
       }
       
       inputLock = true;
+      document.getElementById("draw").style.visibility = 'hidden';
+      document.getElementById("resign").style.visibility = 'hidden';
       document.getElementById("newGame").style.visibility = 'visible';
       document.getElementById("whosturn").innerText = 'Game over'
       setTimeout(() => {
