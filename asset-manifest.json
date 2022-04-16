@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/www.theconnect5.com/static/css/main.db2e9c6a.css",
-    "main.js": "/www.theconnect5.com/static/js/main.0210d2bd.js",
-    "static/js/787.ad6089d3.chunk.js": "/www.theconnect5.com/static/js/787.ad6089d3.chunk.js",
-    "index.html": "/www.theconnect5.com/index.html",
-    "main.db2e9c6a.css.map": "/www.theconnect5.com/static/css/main.db2e9c6a.css.map",
-    "main.0210d2bd.js.map": "/www.theconnect5.com/static/js/main.0210d2bd.js.map",
-    "787.ad6089d3.chunk.js.map": "/www.theconnect5.com/static/js/787.ad6089d3.chunk.js.map"
+    "main.css": "/static/css/main.db2e9c6a.css",
+    "main.js": "/static/js/main.641d4ffc.js",
+    "static/js/787.ad6089d3.chunk.js": "/static/js/787.ad6089d3.chunk.js",
+    "index.html": "/index.html",
+    "main.db2e9c6a.css.map": "/static/css/main.db2e9c6a.css.map",
+    "main.641d4ffc.js.map": "/static/js/main.641d4ffc.js.map",
+    "787.ad6089d3.chunk.js.map": "/static/js/787.ad6089d3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.db2e9c6a.css",
-    "static/js/main.0210d2bd.js"
+    "static/js/main.641d4ffc.js"
   ]
 }
