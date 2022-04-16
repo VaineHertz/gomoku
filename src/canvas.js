@@ -29,11 +29,11 @@ let board = resetBoard();
 const Prompt = (props) => {
   useEffect(() => {
   setTimeout(() => {
-  pOneName = window.prompt("Enter name for Player 1");}, 100)
+  pOneName = window.prompt("Enter name for Player 1");}, 250)
   
   setTimeout(() => {
     if (pOneName !== 'Player 1')
-      pTwoName = window.prompt("Enter name for Player 2");}, 100);
+      pTwoName = window.prompt("Enter name for Player 2");}, 500);
   });
 
   useEffect(() => {
@@ -42,9 +42,9 @@ const Prompt = (props) => {
     const intervalID = setInterval(() => {
       if (++x === 60)
         window.clearInterval(intervalID)
-      if (String(pOneName) === 'null')
+      if (String(pOneName) === 'null' || String(pOneName).replace(/\s/g, "") === '')
         pOneName = 'Player 1';
-      if (String(pTwoName) === 'null')
+      if (String(pTwoName) === 'null' || String(pTwoName).replace(/\s/g, "") === '')
         pTwoName = 'Player 2';
       document.getElementById("score").innerText = `${pOneName} (${pOneTurn}) ${pOneScore} - ${pTwoScore} (${pOneTurn === 'black' ? 'white' : 'black'}) ${pTwoName}`},
       1000)})
